@@ -63,8 +63,8 @@ def readvcf(vcf):
 		for indv in popdata:
 			if indv[0]!='#':
 				indnum = len([x for x in indv.split() if '|' in x or '/' in x ])
+				missing=[]
 				if ".|." in indv or "./" in indv:
-					missing=[]
 					for ind in range(len(indv.split())):
 						if indv.split()[ind]=='.|.' or indv.split()[ind]=='./.':
 							missing.append(len(indv.split())-ind)
