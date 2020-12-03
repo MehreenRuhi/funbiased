@@ -1,6 +1,7 @@
 import os,sys
 import argparse
 import subprocess
+import numpy as np
 parser = argparse.ArgumentParser(description='funbiased')
 subparsers = parser.add_subparsers(help='sub-command help')
 
@@ -61,21 +62,25 @@ def readvcf(vcf):
 	with open(vcf,'r') as popdata:
 		for indv in popdata:
 			if indv[0]!='#':
-				if ".|." in indv:
-					missing=[]
+				indnum = len([x for x in indv.split() if '|' in x or '/' in x ])
+				missing=[]
+				if ".|." in indv or "./." in indv:
 					for ind in range(len(indv.split())):
-						if indv.split()[ind]=='.|.':
+						if indv.split()[ind]=='.|.' or indv.split()[ind]=='./.':
 							missing.append(len(indv.split())-ind)
 					misslist.append(missing)
 				else:
 					misslist.append('No')
-				pc0=0.00
-				pc1=0.00
-				for eachind in indv.split():
-					if "|" in eachind:
-						pc0+=eachind.count('0')
-						pc1+=eachind.count('1')
-				plist.append(pc0/(pc0+pc1))
+				if len(missing)==indnum:
+					plist.append(np.nan)
+                                if len(missing)!=indnum:
+					pc0=0.00
+					pc1=0.00
+					for eachind in indv.split():
+						if "|" in eachind or "/" in eachind:
+							pc0+=eachind.count('0')
+							pc1+=eachind.count('1')
+					plist.append(pc0/(pc0+pc1))
 					
 	return(plist,misslist)
 
@@ -105,6 +110,8 @@ if allins['mode'] == 'F2':
 	ftot=0.0
 	ftotunb=0.0
 	for r in range(len(p1list)):
+		if p1list[r] is np.nan or p2list[r] is np.nan:
+			continue
 		if p1mis[r]!='No':
 			kincoeffa=miskin(k1,p1mis[r])
 		countsite+=1
@@ -134,6 +141,8 @@ if allins['mode'] == 'F3':
         ftot=0.0
         ftotunb=0.0
         for r in range(len(p1list)):
+		if p1list[r] is np.nan or p2list[r] is np.nan or p3list[r] is np.nan:
+			continue
                 if p1mis[r]!='No':
                         kincoeffa=miskin(k1,p1mis[r])
                 countsite+=1
@@ -163,6 +172,8 @@ if allins['mode'] == 'F3norm':
 	fden=0.0
 	fdenunb=0.0
         for r in range(len(p1list)):
+		if p1list[r] is np.nan or p2list[r] is np.nan or p3list[r] is np.nan:
+			continue
                 if p1mis[r]!='No':
                         kincoeffa=miskin(k1,p1mis[r])
                 countsite+=1
@@ -208,6 +219,8 @@ if allins['mode'] == 'F4norm':
         fden=0.0
         fdenunb=0.0
         for r in range(len(p1list)):
+		if p1list[r] is np.nan or p2list[r] is np.nan or p3list[r] is np.nan or p4list[r] is np.nan:
+			continue
                 if plist[r]!='No':
                         kincoeffp=miskin(k1,p1mis[r])
                 countsite+=1
