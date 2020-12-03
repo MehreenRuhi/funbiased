@@ -141,6 +141,8 @@ if allins['mode'] == 'F3':
         ftot=0.0
         ftotunb=0.0
         for r in range(len(p1list)):
+		if p1list[r] is np.nan or p2list[r] is np.nan or p3list[r] is np.nan:
+			continue
                 if p1mis[r]!='No':
                         kincoeffa=miskin(k1,p1mis[r])
                 countsite+=1
@@ -170,6 +172,8 @@ if allins['mode'] == 'F3norm':
 	fden=0.0
 	fdenunb=0.0
         for r in range(len(p1list)):
+		if p1list[r] is np.nan or p2list[r] is np.nan or p3list[r] is np.nan:
+			continue
                 if p1mis[r]!='No':
                         kincoeffa=miskin(k1,p1mis[r])
                 countsite+=1
@@ -215,6 +219,8 @@ if allins['mode'] == 'F4norm':
         fden=0.0
         fdenunb=0.0
         for r in range(len(p1list)):
+		if p1list[r] is np.nan or p2list[r] is np.nan or p3list[r] is np.nan or p4list[r] is np.nan:
+			continue
                 if plist[r]!='No':
                         kincoeffp=miskin(k1,p1mis[r])
                 countsite+=1
