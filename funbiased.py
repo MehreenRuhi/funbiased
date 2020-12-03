@@ -110,6 +110,8 @@ if allins['mode'] == 'F2':
 	ftot=0.0
 	ftotunb=0.0
 	for r in range(len(p1list)):
+		if p1list[r] is np.nan or p2list[r] is np.nan:
+			continue
 		if p1mis[r]!='No':
 			kincoeffa=miskin(k1,p1mis[r])
 		countsite+=1
