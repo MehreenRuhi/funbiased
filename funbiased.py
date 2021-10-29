@@ -221,7 +221,7 @@ if allins['mode'] == 'F4norm':
         for r in range(len(p1list)):
 		if p1list[r] is np.nan or p2list[r] is np.nan or p3list[r] is np.nan or p4list[r] is np.nan:
 			continue
-                if plist[r]!='No':
+                if p1mis[r]!='No':
                         kincoeffp=miskin(k1,p1mis[r])
                 countsite+=1
                 a,b,c,d,p= p1list[r],p2list[r],p3list[r],p4list[r],plist[r]
