@@ -237,3 +237,4 @@ if allins['mode'] == 'F4norm':
 		fden+=denom
 		fdenunb+=unbdenom
 	print (ftot/countsite)/(fden/countsite),(ftot/countsite)/(fdenunb/countsite)
+
